@@ -116,7 +116,7 @@ function Desk() {
             <PositionsTable rows={data.positions} grossHoldings={data.capital?.gross_holdings ?? 0} />
             <MorningCards data={data} />
             <div className="grid grid-cols-1 gap-2 xl:grid-cols-[minmax(0,1.85fr)_minmax(0,1fr)]">
-              <EquityChart performance={data.performance} />
+              <EquityChart performance={data.performance} synthetic={data.source === "fixture"} />
               <CatalystRadar events={data.radar} />
             </div>
             <FearGreedChart fear={data.fear_greed} />

@@ -7,7 +7,7 @@ export function CapitalStrip({ data }: { data: Dashboard }) {
   const capital = data.capital;
   const korea = data.korea?.combined_usd ?? capital?.korea_overnight_usd ?? 0;
   const cells = [
-    ["Robinhood net equity", data.broker_net_equity ?? capital?.net_equity ?? 0],
+    [data.source === "fixture" ? "Demo net equity" : "Robinhood net equity", data.broker_net_equity ?? capital?.net_equity ?? 0],
     ...(data.market_quotes?.updated.length && data.broker_net_equity != null
       ? [["Estimated net equity", capital?.net_equity ?? 0] as const]
       : []),

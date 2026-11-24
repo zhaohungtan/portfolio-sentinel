@@ -4,6 +4,32 @@ Portfolio Sentinel is a read-only investment dashboard I built to answer three q
 
 The project combines authenticated broker data, market history, and news into a dashboard with a holdings heat map, margin scenarios, and a catalyst calendar. The included demo uses fictional balances, positions, and benchmark prices. It runs without brokerage credentials.
 
+## Dashboard demo
+
+![Portfolio Sentinel dashboard with a synthetic holdings heat map, margin scenario, and QQQ and SPY comparison](docs/dashboard-demo.png)
+
+The screenshot uses the included synthetic fixtures and shows the **Trim 50% RAM** what-if scenario. The chart's portfolio endpoint and the net equity tile both read **$2,540.00**.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    RH["Robinhood Trading MCP"] -->|Authorized reads| Codex["Codex OAuth + read-only Node bridge"]
+    YF["Yahoo Finance"] -->|Daily market prices| Analytics["Python + NumPy analytics"]
+    subgraph Local["Local development machine"]
+        Codex -->|Validated snapshot| Book["Private snapshot · JSON"]
+        Book --> Analytics
+        Book --> Audit["Audit CLI"]
+        Audit --> DB["DuckDB · snapshots, peaks, catalysts"]
+        DB -->|Stored history| Analytics
+        Fixture["Public synthetic fixtures"] -->|Credential-free demo| Analytics
+        Analytics --> API["FastAPI · dashboard payload"]
+        API --> UI["Next.js · heat map, risk and comparison"]
+    end
+```
+
+The public repository includes the fixture path and source code. Live snapshots, local database files, and OAuth stay on the machine running the dashboard.
+
 ## How the data moves
 
 | Stage | Implementation |
@@ -20,6 +46,16 @@ The project combines authenticated broker data, market history, and news into a 
 - **Constrain and verify the agent integration.** The bridge calls an explicit list of read tools through Codex. The dataset, authorization, and account configuration stay local. Tests check stale-quote rejection, holding changes after a broker refresh, benchmark arithmetic, and deterministic margin scenarios.
 
 The maintenance thresholds and simulated prices are model assumptions. The simulation is useful for comparing scenarios and does not reproduce the broker's margin model.
+
+## Case study: fixing a stale portfolio after refresh
+
+A browser reload originally reused the last saved positions, and a cached audit could still supply holdings after the saved book changed. Refreshing quotes alone could move an estimate while leaving the account balance and holdings stale. This mattered because the heat map and benchmark comparison could tell different stories about the same account.
+
+I separated the broker snapshot from estimated market values and added a dedicated read-only Robinhood sync. A successful sync validates and atomically replaces the snapshot. The dashboard rebuilds the positions and heat map from that snapshot, reusing cached audit data for indicators only. The comparison chart takes its portfolio endpoint from the broker-reported equity.
+
+I verified this at two levels. Regression tests check that stale quotes leave newer snapshot marks intact and that a sold position in an older audit never reappears. An authenticated local sync confirmed that the broker net equity, capital strip, and comparison endpoint agreed. The public fixture reproduces the reconciliation without using any personal values.
+
+See [the refresh regression tests](tests/test_desk_refresh.py), [the broker bridge](scripts/robinhood-sync.mjs), and [the comparison math](src/desk.py).
 
 ## Run locally
 

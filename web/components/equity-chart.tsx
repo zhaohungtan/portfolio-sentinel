@@ -12,7 +12,13 @@ const SERIES = [
   { key: "SPY", title: "S&P 500", color: "#047857", width: 1 },
 ] as const;
 
-export function EquityChart({ performance }: { performance: Dashboard["performance"] }) {
+export function EquityChart({
+  performance,
+  synthetic,
+}: {
+  performance: Dashboard["performance"];
+  synthetic: boolean;
+}) {
   const host = useRef<HTMLDivElement>(null);
   const { hidden } = usePrivacy();
   const same = performance.same_cash;
@@ -66,7 +72,9 @@ export function EquityChart({ performance }: { performance: Dashboard["performan
       <header className="flex items-center justify-between border-b border-zinc-200 px-3 py-2 text-[10px] tracking-[0.16em] text-zinc-500 uppercase">
         Portfolio vs QQQ vs S&P 500
         <span className="tracking-normal text-zinc-600 normal-case">
-          Estimated starting capital · QQQ and SPY use Yahoo Finance daily prices
+          {synthetic
+            ? "Synthetic demo · fictional portfolio and benchmark prices"
+            : "Estimated starting capital · QQQ and SPY use Yahoo Finance daily prices"}
         </span>
       </header>
       {curve.length === 0 ? (
