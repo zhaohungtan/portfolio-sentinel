@@ -1,0 +1,78 @@
+{
+  "RAM": {
+    "name": "Roundhill T-REX 2X Long DRAM Daily Target ETF",
+    "leverage": 2.0,
+    "benchmark_etf": "DRAM",
+    "news_tickers": [
+      "MU",
+      "005930.KS",
+      "000660.KS",
+      "STX",
+      "WDC",
+      "SNDK"
+    ],
+    "top_weights": {
+      "Samsung_005930.KS": 0.2825,
+      "MU": 0.2616,
+      "SKHynix_000660.KS": 0.233
+    },
+    "sector_cluster": "AI_Infrastructure",
+    "next_major_catalyst": {
+      "ticker": "MU",
+      "event": "Q1 FY27 Earnings",
+      "date": "2026-12-17"
+    }
+  },
+  "UBRL": {
+    "name": "GraniteShares 2x Long UBER Daily ETF",
+    "leverage": 2.0,
+    "news_tickers": [
+      "UBER"
+    ],
+    "sector_cluster": "Consumer_Mobility",
+    "next_major_catalyst": {
+      "ticker": "UBER",
+      "event": "Q4 2026 Earnings (Est.)",
+      "date": "2027-02-03"
+    }
+  },
+  "NEBX": {
+    "name": "Tradr 2X Long NBIS Daily ETF",
+    "leverage": 2.0,
+    "news_tickers": [
+      "NBIS"
+    ],
+    "sector_cluster": "AI_Infrastructure",
+    "next_major_catalyst": {
+      "ticker": "NBIS",
+      "event": "Q4 2026 Earnings (Est.)",
+      "date": "2027-02-11"
+    }
+  },
+  "APLD": {
+    "name": "Applied Digital Corporation",
+    "leverage": 1.0,
+    "news_tickers": [
+      "APLD"
+    ],
+    "sector_cluster": "AI_Infrastructure",
+    "next_major_catalyst": {
+      "ticker": "APLD",
+      "event": "Q2 FY27 Earnings (Est.)",
+      "date": "2027-01-06"
+    }
+  },
+  "SMCX": {
+    "name": "Defiance Daily Target 2X Long SMCI ETF",
+    "leverage": 2.0,
+    "news_tickers": [
+      "SMCI"
+    ],
+    "sector_cluster": "AI_Infrastructure",
+    "next_major_catalyst": {
+      "ticker": "SMCI",
+      "event": "Q2 FY27 Earnings (Est.)",
+      "date": "2027-02-02"
+    }
+  }
+}

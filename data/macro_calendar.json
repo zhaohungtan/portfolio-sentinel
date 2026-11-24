@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "date": "2026-12-01",
+      "time_et": "10:00",
+      "name": "JOLTS Job Openings (Oct)",
+      "kind": "macro"
+    },
+    {
+      "date": "2026-12-04",
+      "time_et": "08:30",
+      "name": "Nonfarm Payrolls / Jobs Report (Nov)",
+      "kind": "macro"
+    },
+    {
+      "date": "2026-12-09",
+      "time_et": "14:00",
+      "name": "FOMC Rate Decision & Economic Projections (Dec 8-9 meeting)",
+      "kind": "macro"
+    },
+    {
+      "date": "2026-12-10",
+      "time_et": "08:30",
+      "name": "CPI Inflation Report (Nov)",
+      "kind": "macro"
+    },
+    {
+      "date": "2026-12-15",
+      "time_et": "08:30",
+      "name": "PPI Inflation Report (Nov)",
+      "kind": "macro"
+    },
+    {
+      "date": "2026-12-23",
+      "time_et": "08:30",
+      "name": "PCE Inflation & Q3 Final GDP",
+      "kind": "macro"
+    },
+    {
+      "date": "2027-01-13",
+      "time_et": "08:30",
+      "name": "CPI Inflation Report (Dec)",
+      "kind": "macro"
+    },
+    {
+      "date": "2027-01-27",
+      "time_et": "14:00",
+      "name": "FOMC Rate Decision (Jan 26-27 meeting)",
+      "kind": "macro"
+    }
+  ]
+}
