@@ -1,14 +1,28 @@
 # Portfolio Sentinel
 
-Portfolio Sentinel is a read-only investment dashboard I built to answer three questions: what is the account worth, where is risk concentrated, and how does its value compare with investing the same starting capital in QQQ or SPY?
+I built **Portfolio Sentinel** to better understand my own portfolio’s exposure to 2× leveraged technology ETFs. The read-only dashboard shows what drives that exposure, how modeled margin risk changes across scenarios, and how portfolio value compares with QQQ and the S&P 500 through SPY.
 
-The project combines authenticated broker data, market history, and news into a dashboard with a holdings heat map, margin scenarios, and a catalyst calendar. The included demo uses fictional balances, positions, and benchmark prices. It runs without brokerage credentials.
+**The public demo uses fictional holdings, balances, and benchmark prices.** Run it locally without brokerage credentials.
+
+## What the dashboard shows
+
+- **Holdings and margin risk** — a heat map sized by holding weight, exposure estimates, and what-if scenarios.
+- **Strategy verdict** — a hypothetical QQQ and SPY comparison using the same estimated starting capital.
+- **Catalysts and news** — upcoming events, 7-day news polarity, and a headline feed filterable by time, scope, and polarity.
+
+## Stack
+
+| Layer | Tools |
+| --- | --- |
+| Frontend | Next.js, TypeScript, and Lightweight Charts |
+| Backend and analytics | FastAPI, Python, NumPy, and DuckDB SQL |
+| Data ingestion | Codex and Robinhood MCP for read-only accounts and positions, Yahoo Finance for daily benchmark prices |
 
 ## Dashboard demo
 
 ![Portfolio Sentinel dashboard with a synthetic holdings heat map, margin scenario, and QQQ and SPY comparison](docs/dashboard-demo.png)
 
-The screenshot uses the included synthetic fixtures and shows the **Trim 50% RAM** what-if scenario. The chart's portfolio endpoint and the net equity tile both read **$2,540.00**.
+The screenshot shows a fictional portfolio and a simulated trim scenario. The chart endpoint and the net equity tile both reconcile to the same fixture value.
 
 ## Architecture
 
