@@ -22,7 +22,7 @@ I built **Portfolio Sentinel** to better understand my own portfolio’s exposur
 
 ![Portfolio Sentinel dashboard with a synthetic holdings heat map, margin scenario, and QQQ and SPY comparison](docs/dashboard-demo.png)
 
-The screenshot shows a fictional portfolio and a simulated trim scenario. The chart endpoint and the net equity tile both reconcile to the same fixture value.
+The screenshot shows mock holdings, benchmark series, and headlines. Holding names are anonymized and dollar values are hidden. The chart endpoint and the net equity tile reconcile to the same fictional value.
 
 ## Architecture
 
@@ -82,7 +82,7 @@ npm --prefix web ci
 ./dev.sh
 ```
 
-Open [the local dashboard](http://localhost:3000). The demo includes five synthetic equity positions and both benchmark lines. Financial amounts and share counts start hidden. Use the visibility toggle to reveal them.
+Open [the local dashboard](http://localhost:3000). The demo includes five anonymized synthetic holdings, both benchmark lines, and a mock news feed. Financial amounts and share counts start hidden. The visibility toggle can reveal the fictional amounts.
 
 ## Optional Robinhood sync
 

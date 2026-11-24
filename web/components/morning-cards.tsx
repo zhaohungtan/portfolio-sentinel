@@ -172,7 +172,7 @@ function Benchmark({
         <Money value={ending} />
       </div>
       <div className={`num text-[11px] ${gap == null ? "text-zinc-400" : beat ? "text-[#047857]" : "text-[#be123c]"}`}>
-        {gap == null ? "—" : `${beat ? "Beat" : "Lost"} ${plainPct(Math.abs(gap))}`}
+        {gap == null ? "—" : `${beat ? "Ahead" : "Trailed"} ${(Math.abs(gap) * 100).toFixed(1)} pp`}
       </div>
     </div>
   );

@@ -158,7 +158,7 @@ export function HeatMap({
         {rects.map((rect) => {
           const paint = tilePaint(rect.tile.unrealized_pct);
           const weight = gross ? (rect.tile.market_value / gross) * 100 : 0;
-          const large = rect.w > 180 && rect.h > 120;
+          const large = rect.w > 212 && rect.h > 120;
           const medium = rect.w > 96 && rect.h > 72;
           return (
             <div

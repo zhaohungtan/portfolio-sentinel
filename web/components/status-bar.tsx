@@ -31,7 +31,7 @@ export function StatusBar({
         <span className="num text-[11px] text-zinc-500">
           {asOf ? asOf.replace("T", " ").slice(0, 16) : "no sync"}
         </span>
-        {source === "fixture" ? <Badge tone="warn">Fixture book</Badge> : null}
+        {source === "fixture" ? <Badge tone="warn">Mock data · holdings anonymized</Badge> : null}
         <Badge tone="lock">Read-only locked</Badge>
         <span className="num text-[11px] text-zinc-400">
           Gold {hidden ? "••••" : "$1,000"} free • 5.25% APR

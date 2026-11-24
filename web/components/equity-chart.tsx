@@ -40,7 +40,7 @@ export function EquityChart({
         vertLines: { color: "#e4e4e7" },
         horzLines: { color: "#e4e4e7" },
       },
-      rightPriceScale: { borderColor: "#e4e4e7" },
+      rightPriceScale: { borderColor: "#e4e4e7", visible: !hidden },
       timeScale: { borderColor: "#e4e4e7" },
       localization: {
         priceFormatter: (price: number) => (hidden ? "••••" : usd(price, 2)),
@@ -56,6 +56,8 @@ export function EquityChart({
         color: series.color,
         lineWidth: series.width,
         title: series.title,
+        lastValueVisible: !hidden,
+        priceLineVisible: !hidden,
         autoscaleInfoProvider: padScale,
       });
       const data = unique(lines[series.key]);
@@ -77,6 +79,9 @@ export function EquityChart({
             : "Estimated starting capital · QQQ and SPY use Yahoo Finance daily prices"}
         </span>
       </header>
+      <div className="flex gap-5 px-3 pt-1 text-[11px]">
+        {SERIES.map((series) => <span key={series.key} style={{ color: series.color }}>{series.title}</span>)}
+      </div>
       {curve.length === 0 ? (
         <p className="p-3 text-xs text-zinc-500">
           The comparison needs all-time realized profit on the saved book.

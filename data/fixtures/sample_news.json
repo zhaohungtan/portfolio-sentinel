@@ -1,0 +1,126 @@
+[
+  {
+    "ticker": "Macro",
+    "held_tickers": [],
+    "title": "Technology shares rise ahead of inflation data",
+    "scope": "MACRO",
+    "polarity": "POSITIVE",
+    "sentiment": 1.0,
+    "exposure_usd": 0,
+    "published_at": "2026-11-22T18:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": [
+      "24H",
+      "72H",
+      "7D"
+    ]
+  },
+  {
+    "ticker": "Holding D",
+    "held_tickers": [
+      "Holding D"
+    ],
+    "title": "Cloud infrastructure provider raises revenue outlook",
+    "scope": "COMPANY",
+    "polarity": "POSITIVE",
+    "sentiment": 1.0,
+    "exposure_usd": 1368,
+    "published_at": "2026-11-22T15:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": [
+      "24H",
+      "72H",
+      "7D"
+    ]
+  },
+  {
+    "ticker": "Holding A",
+    "held_tickers": [
+      "Holding A"
+    ],
+    "title": "Memory supplier trims its capital spending forecast",
+    "scope": "COMPANY",
+    "polarity": "NEGATIVE",
+    "sentiment": -1.0,
+    "exposure_usd": 3480,
+    "published_at": "2026-11-22T07:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": [
+      "24H",
+      "72H",
+      "7D"
+    ]
+  },
+  {
+    "ticker": "Macro",
+    "held_tickers": [],
+    "title": "Treasury yields ease as traders reassess rate expectations",
+    "scope": "MACRO",
+    "polarity": "POSITIVE",
+    "sentiment": 1.0,
+    "exposure_usd": 0,
+    "published_at": "2026-11-21T11:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": [
+      "72H",
+      "7D"
+    ]
+  },
+  {
+    "ticker": "Holding E",
+    "held_tickers": [
+      "Holding E"
+    ],
+    "title": "Server supplier reports higher demand for AI systems",
+    "scope": "COMPANY",
+    "polarity": "POSITIVE",
+    "sentiment": 1.0,
+    "exposure_usd": 1200,
+    "published_at": "2026-11-20T10:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": [
+      "72H",
+      "7D"
+    ]
+  },
+  {
+    "ticker": "Macro",
+    "held_tickers": [],
+    "title": "Manufacturing survey falls below expectations",
+    "scope": "MACRO",
+    "polarity": "NEGATIVE",
+    "sentiment": -1.0,
+    "exposure_usd": 0,
+    "published_at": "2026-11-17T22:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": [
+      "7D"
+    ]
+  },
+  {
+    "ticker": "Holding B",
+    "held_tickers": [
+      "Holding B"
+    ],
+    "title": "Mobility business reports quarterly bookings",
+    "scope": "COMPANY",
+    "polarity": "NEUTRAL",
+    "sentiment": 0.0,
+    "exposure_usd": 1976,
+    "published_at": "2026-11-15T10:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": []
+  },
+  {
+    "ticker": "Macro",
+    "held_tickers": [],
+    "title": "Policy panel publishes its meeting calendar",
+    "scope": "MACRO",
+    "polarity": "NEUTRAL",
+    "sentiment": 0.0,
+    "exposure_usd": 0,
+    "published_at": "2026-11-13T18:48:00-08:00",
+    "publisher": "Mock headline",
+    "windows": []
+  }
+]

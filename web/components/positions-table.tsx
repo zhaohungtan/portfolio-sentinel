@@ -5,7 +5,7 @@ import { flexRender } from "@tanstack/react-table";
 import { getCoreRowModel, legacyCreateColumnHelper, useLegacyTable } from "@tanstack/react-table/legacy";
 import { Money, usePrivacy } from "@/components/privacy";
 import { Badge } from "@/components/ui/badge";
-import { pct, usd } from "@/lib/format";
+import { pct } from "@/lib/format";
 import type { PositionRow } from "@/lib/types";
 
 const helper = legacyCreateColumnHelper<PositionRow>();
@@ -295,7 +295,7 @@ function Signal({ name }: { name?: string }) {
 function PositionDrawer({ row, onClose }: { row: PositionRow; onClose: () => void }) {
   const target =
     row.underlying_symbol && row.underlying_target_30d != null
-      ? `${row.underlying_symbol} ${usd(row.underlying_target_30d, 2)}`
+      ? <>{row.underlying_symbol} <Money value={row.underlying_target_30d} /></>
       : null;
   return (
     <aside className="fixed inset-y-0 right-0 z-30 flex w-[320px] flex-col border-l border-zinc-200 bg-white text-black shadow-2xl">

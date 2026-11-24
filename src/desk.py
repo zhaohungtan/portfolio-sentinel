@@ -59,7 +59,8 @@ def compose_dashboard(
     if refresh_quotes and source == "live":
         quotes = _mark_book_market_quotes(book)
     portfolio_map = _read_json(repo / "portfolio_map.json")
-    audit, sigma_source = _metrics(repo, book, portfolio_map)
+    demo = source == "fixture"
+    audit, sigma_source = _metrics(repo, book, portfolio_map, use_cache=not demo)
     positions = list(audit.get("positions") or [])
     sim_rows = [
         {
@@ -78,7 +79,7 @@ def compose_dashboard(
     calendar = build_calendar(
         portfolio_map,
         positions,
-        datetime.now(ZoneInfo("America/Los_Angeles")),
+        as_of if demo else datetime.now(ZoneInfo("America/Los_Angeles")),
         _sigma_map(positions),
     )
     unrealized = _sum(row.get("unrealized_pnl") for row in positions)
@@ -101,14 +102,19 @@ def compose_dashboard(
         margin_used=margin_used,
         current=margin,
     )
-    performance = read_performance(
-        repo / "data" / "sentinel.duckdb",
-        benchmarks=_benchmark_points(repo),
-        unrealized_pnl=unrealized,
-        daily_decay_drag=decay,
-        margin_used=margin_used,
-    )
-    if source == "live":
+    performance_args = {
+        "unrealized_pnl": unrealized,
+        "daily_decay_drag": decay,
+        "margin_used": margin_used,
+    }
+    if demo:
+        performance = summarize_performance([], **performance_args)
+    else:
+        performance = read_performance(
+            repo / "data" / "sentinel.duckdb",
+            benchmarks=_benchmark_points(repo),
+            **performance_args,
+        )
         performance = _with_reconstruction(
             repo,
             positions,
@@ -119,7 +125,7 @@ def compose_dashboard(
             daily_decay_drag=decay,
             book_as_of=as_of.isoformat(),
         )
-    performance["benchmark_curves"] = _rebased_benchmarks(
+    performance["benchmark_curves"] = {} if demo else _rebased_benchmarks(
         performance.get("equity_curve") or [],
         _benchmark_levels(repo, performance),
     )
@@ -131,7 +137,19 @@ def compose_dashboard(
         as_of_date=as_of_day,
         levels=_read_json(repo / "data" / "fixtures" / "sample_benchmarks.json") if source == "fixture" else _read_benchmarks(repo),
     )
-    tape = _visible_tape(_read_tape(repo), positions)
+    if demo:
+        tape = json.loads((repo / "data" / "fixtures" / "sample_news.json").read_text(encoding="utf-8"))
+        positions = [_anonymize_demo_position(row, index) for index, row in enumerate(positions)]
+        radar = [event for event in calendar["radar"] if event["kind"] == "macro"]
+        next_catalyst = radar[0] if radar else None
+        scenario_labels = {"trim_ram": "Trim largest holding", "close_nebx_smcx": "Close two positions"}
+        scenarios = [
+            {**scenario, "label": scenario_labels.get(scenario["id"], scenario["label"])}
+            for scenario in scenarios
+        ]
+    else:
+        tape = _visible_tape(_read_tape(repo), positions)
+        radar, next_catalyst = calendar["radar"], calendar["next"]
     fear_greed = load_fear_greed(repo, start_date=str(primary.get("first_activity_date") or "") or None) if source == "live" else None
     drops = dict(margin["drops"])
     drops["stressed_static_buffer_usd"] = buffer["usd"]
@@ -170,8 +188,8 @@ def compose_dashboard(
         },
         "performance": performance,
         "fear_greed": fear_greed,
-        "next_catalyst": calendar["next"],
-        "radar": calendar["radar"],
+        "next_catalyst": next_catalyst,
+        "radar": radar,
         "sentiment": sentiment_gauges(tape),
         "heatmap": [
             {
@@ -185,6 +203,17 @@ def compose_dashboard(
         "positions": positions,
         "news": tape,
     }
+
+
+
+def _anonymize_demo_position(row: Mapping[str, Any], index: int) -> dict[str, Any]:
+    fields = (
+        "asset_class", "shares", "avg_cost", "current_price", "market_value",
+        "unrealized_pnl", "leverage", "daily_variance_drag", "breakeven_underlying_30d",
+        "breakeven_underlying_60d", "stop_limit_trigger", "cost_basis",
+        "equity_if_breakeven", "clears_margin", "signal", "vol_capped",
+    )
+    return {**{key: row.get(key) for key in fields}, "ticker": f"Holding {chr(65 + index)}"}
 
 
 def filter_news(
@@ -410,10 +439,14 @@ def _refresh_benchmarks(repo: Path, first_activity_date: str | None = None) -> N
 
 
 def _metrics(
-    repo: Path, book: Mapping[str, Any], portfolio_map: Mapping[str, Any]
+    repo: Path,
+    book: Mapping[str, Any],
+    portfolio_map: Mapping[str, Any],
+    *,
+    use_cache: bool = True,
 ) -> tuple[dict[str, Any], str]:
     audit_path = repo / "data" / "latest_audit.json"
-    cached = _read_json(audit_path) if audit_path.exists() else {}
+    cached = _read_json(audit_path) if use_cache and audit_path.exists() else {}
     cached_rows = cached.get("positions") or []
     if cached_rows:
         return build_metrics(

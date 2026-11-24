@@ -26,7 +26,7 @@
           "ticker": "UBRL",
           "asset_class": "equity",
           "shares": 30,
-          "avg_cost": 21,
+          "avg_cost": 17,
           "current_price": 19,
           "market_value": 570
         },
@@ -42,7 +42,7 @@
           "ticker": "APLD",
           "asset_class": "equity",
           "shares": 25,
-          "avg_cost": 22,
+          "avg_cost": 14,
           "current_price": 18,
           "market_value": 450
         },
@@ -50,7 +50,7 @@
           "ticker": "SMCX",
           "asset_class": "equity",
           "shares": 30,
-          "avg_cost": 14,
+          "avg_cost": 8,
           "current_price": 10,
           "market_value": 300
         },
